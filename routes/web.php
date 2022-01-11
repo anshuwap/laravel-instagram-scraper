@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Home;
 use App\Http\Controllers\Auth\Login;
 use App\Http\Controllers\Auth\Register;
 use Illuminate\Support\Facades\Route;
@@ -24,5 +25,12 @@ Route::prefix('auth')->group(function (){
     Route::get('login' , [Login::class , 'showPage'])->name('login.showPage');
 
     Route::post('login' , [Login::class , 'loginUser'])->name('login.loginUser');
+
+});
+
+
+Route::prefix('admin')->group(function () {
+
+    Route::get('dashboard' , [Home::class , 'index'])->name('admin.home');
 
 });

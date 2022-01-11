@@ -19,7 +19,7 @@ class Login extends Controller
         $recivedData = $request->validated();
 
         if (Auth::attempt($recivedData))
-            return back()->with('success' , 'وارد شدید');
+            return redirect()->route('admin.home')->with('success' , 'وارد شدید');
 
         if (!Auth::attempt($recivedData))
             return back()->with('failed' , 'کاربر قبلا ثبت نشده است');

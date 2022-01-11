@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'vazir';
+    src: url("../fonts/fonts/vazir.woff2") format('woff2'),
+       url("../fonts/fonts/vazir.woff") format('woff');
+    }
+
+
+.mt-2{
+    font-family: 'vazir';
+}
