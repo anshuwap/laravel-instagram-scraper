@@ -15,6 +15,14 @@ class CreatePropagendTable extends Migration
     {
         Schema::create('propagend', function (Blueprint $table) {
             $table->id();
+            $table->char('ID_instagram' , 255)->unique();
+            $table->unsignedBigInteger('view');
+            $table->unsignedBigInteger('like');
+            $table->unsignedBigInteger('comment');
+            $table->char('owner' , 255);
+            $table->char('tag' , 255);
+            $table->enum('type_media' , ['image' ,'video', 'sidecar']);
+            $table->char('date' , 255);
             $table->timestamps();
         });
     }

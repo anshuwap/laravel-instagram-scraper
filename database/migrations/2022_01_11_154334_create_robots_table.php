@@ -15,6 +15,9 @@ class CreateRobotsTable extends Migration
     {
         Schema::create('robots', function (Blueprint $table) {
             $table->id();
+            $table->char('username', 255)->unique();
+            $table->char('password', 255);
+            $table->char('proxy', 255);
             $table->timestamps();
         });
     }
