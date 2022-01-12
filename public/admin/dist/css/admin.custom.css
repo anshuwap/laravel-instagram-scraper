@@ -8,3 +8,39 @@
 .mt-2{
     font-family: 'vazir';
 }
+
+.table{
+    font-family: 'vazir';
+}
+
+h3 {
+    font-family: 'vazir';
+}
+
+.row{
+    display: -ms-flexbox;
+    display: initial;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -7.5px;
+    margin-left: -7.5px;
+    direction: rtl;
+}
+
+.card-body {
+    font-family: 'vazir';
+    direction: rtl;
+}
+
+.alert {
+    text-align: center;
+    font-family: 'Vazir';
+}
+
+.card-primary {
+    text-align: center;
+}
+
+.form-control {
+    text-align: center;
+}

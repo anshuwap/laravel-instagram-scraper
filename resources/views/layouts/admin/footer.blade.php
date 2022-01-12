@@ -1,3 +1,5 @@
+</div>
+<!-- /.content-wrapper -->
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -29,5 +31,7 @@
 <script src="/admin/dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="/admin/dist/js/pages/dashboard2.js"></script>
+
 </body>
 </html>
+

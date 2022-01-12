@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\Home;
+use App\Http\Controllers\Admin\Robots;
 use App\Http\Controllers\Auth\Login;
 use App\Http\Controllers\Auth\Register;
 use Illuminate\Support\Facades\Route;
@@ -32,5 +33,20 @@ Route::prefix('auth')->group(function (){
 Route::prefix('admin')->group(function () {
 
     Route::get('dashboard' , [Home::class , 'index'])->name('admin.home');
+
+    Route::prefix('robots')->group(function () {
+
+        Route::get('list' , [Robots::class , 'showAll'])->name('robots.list');
+
+        Route::get('add' , [Robots::class , 'add'])->name('robots.add');
+
+        Route::post('store' , [Robots::class , 'store'])->name('robots.storeNew');
+
+        Route::get('{robot_id}/edit' , [Robots::class , 'edit'])->name('robots.edit');
+
+        Route::put('{robot_id}/update' , [Robots::class , 'update'])->name('robots.update');
+
+        Route::delete('{robot_id}/delete' , [Robots::class , 'delete'])->name('robots.delete');
+    });
 
 });

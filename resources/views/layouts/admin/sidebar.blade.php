@@ -1,9 +1,9 @@
 <div class="wrapper">
 
   <!-- Preloader -->
-  <div class="preloader flex-column justify-content-center align-items-center">
+  {{-- <div class="preloader flex-column justify-content-center align-items-center">
     <img class="animation__wobble" src="/admin/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-  </div>
+  </div> --}}
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-dark">
@@ -90,15 +90,15 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>ایجاد روبات ها</p>
+                <a href="{{ route('robots.list') }}" class="nav-link">
+                  <i class="fas fa-list"></i>
+                  <p>لیست ربات ها</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./index2.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>تغییر اطلاعات روبات ها</p>
+                <a href="{{ route('robots.add') }}" class="nav-link">
+                  <i class="fas fa-plus-circle"></i>
+                  <p>ایجاد روبات ها</p>
                 </a>
               </li>
             </ul>
@@ -114,7 +114,7 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="./index.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
+                  <i class="fab fa-quinscape"></i>
                   <p>اسکرپ</p>
                 </a>
               </li>
@@ -127,3 +127,7 @@
     </div>
     <!-- /.sidebar -->
   </aside>
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
