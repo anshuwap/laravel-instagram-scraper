@@ -1,0 +1,72 @@
+@font-face {
+    font-family: 'vazir';
+    src: url("../fonts/fonts/vazir.woff2") format('woff2'),
+       url("../fonts/fonts/vazir.woff") format('woff');
+    }
+
+
+
+    .sidebar-menu a.dropdown-toggle {
+    font-family : vazir;
+}
+
+.sidebar-menu .submenu li a {
+	font-family: vazir;
+}
+span{
+	font-family: vazir;
+}
+label{
+	font-family: vazir;
+}
+
+.product-slider {
+    direction: ltr;
+}
+
+.product-slider-nav {
+    direction: ltr;
+}
+
+.contact-directory-box .contact-avatar span {
+    display: flex;
+    width: 200px;
+    height: 200px;
+}
+
+.register-page-wrap, .register-page-wrap .wizard-content .wizard {
+    direction : ltr;
+}
+
+.paginate {
+    position: relative;
+    left: 380px;
+    bottom: 15px;
+    direction: ltr;
+}
+
+.infoDev {
+    z-index: 1000;
+    position: absolute;
+    top: 570px;
+    left: 4px;
+}
+
+.infoDev a {
+    color:white;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: small;
+}
+
+.infoDev a > span{
+    color:yellow;
+    
+}
+
+.contact-directory-box .contact-avatar span {
+    border-radius: 2%;
+}
+
+.contact-directory-box .contact-avatar span img{
+    border-radius: 2%;
+}

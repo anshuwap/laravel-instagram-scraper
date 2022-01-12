@@ -113,9 +113,15 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./index.html" class="nav-link">
+                <a href="{{ route('posts.scrap.showPage') }}" class="nav-link">
                   <i class="fab fa-quinscape"></i>
                   <p>اسکرپ</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('posts.showAll') }}" class="nav-link">
+                  <i class="fab fa-instagram"></i>
+                    <p>نمایش پست ها</p>
                 </a>
               </li>
             </ul>

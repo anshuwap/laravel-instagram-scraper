@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\Home;
 use App\Http\Controllers\Admin\Robots;
 use App\Http\Controllers\Auth\Login;
 use App\Http\Controllers\Auth\Register;
+use App\Http\Controllers\PostsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,5 +49,15 @@ Route::prefix('admin')->group(function () {
 
         Route::delete('{robot_id}/delete' , [Robots::class , 'delete'])->name('robots.delete');
     });
+
+});
+
+Route::prefix('posts')->group(function () {
+
+    Route::get('' , [PostsController::class , 'showAll'])->name('posts.showAll');
+
+    Route::get('scrap' , [PostsController::class , 'add'])->name('posts.scrap.showPage');
+
+    Route::post('start' , [PostsController::class , 'startScrap'])->name('start.scrap');
 
 });

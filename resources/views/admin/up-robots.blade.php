@@ -27,7 +27,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">پروکسی</label>
-                            <input type="password" name="proxy" class="form-control" id="exampleInputPassword1" value="{{ $robot['proxy'] }}">
+                            <input type="text" name="proxy" class="form-control" id="exampleInputPassword1" value="{{ $robot['proxy'] }}">
                         </div>
                     </div>
                     <!-- /.card-body -->
