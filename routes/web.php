@@ -61,3 +61,4 @@ Route::prefix('posts')->group(function () {
     Route::post('start' , [PostsController::class , 'startScrap'])->name('start.scrap');
 
 });
+

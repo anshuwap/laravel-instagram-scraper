@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers;
 
+
+use IlluminateHttpRequest;
+
+
+
+use AppHttpRequests;
+
+
 use App\Http\Requests\Scraper\File;
 use App\Models\Post;
 use App\Models\Robot;
 use App\Services\InstagramScraper;
 use App\Utilities\ExcelHandler;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File as FacadesFile;
 
@@ -91,4 +100,5 @@ class PostsController extends Controller
             
         return $accountData;
     }
+
 }

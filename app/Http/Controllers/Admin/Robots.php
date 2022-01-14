@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Robots\StoreRobot;
 use App\Http\Requests\Robots\updateRobot;
 use App\Models\Robot;
+use App\Services\ProxyChecker;
 use Illuminate\Http\Request;
 
 class Robots extends Controller
@@ -15,6 +16,12 @@ class Robots extends Controller
     public function showAll()
     {
         $robots = Robot::paginate(10);
+
+        $proxies = array_column(Robot::select('proxy')->get()->toArray() , 'proxy');
+
+        $checkProxies = new ProxyChecker();
+
+        $checkProxies->CheckMultiProxy($proxies);
 
         return view('admin.list-robots' , ['robots' => $robots]);
     }

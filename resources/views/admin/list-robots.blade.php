@@ -33,7 +33,7 @@
                         <th>نام کاربری پیج</th>
                         <th>رمز</th>
                         <th>پروکسی</th>
-                        <th>وضعیت</th>
+                        <th>وضعیت پروکسی</th>
                         <th>عملیات</th>
                         <th>تاریخ</th>
                       </tr>
@@ -46,7 +46,12 @@
                         <td>{{ $robot->password }}</td>
                         <td>{{ $robot->proxy }}</td>
                         <td>
-                            {{-- <span class="tag tag-success">Approved</span> --}}
+                          @if($robot->proxy_status == 'online')
+                            <span class="badge bg-success">Online</span>
+                          @endif
+                          @if($robot->proxy_status == 'offline')
+                            <span class="badge bg-danger">Offline</span>
+                          @endif
                         </td>
                         <td>
                             <a href="{{ route('robots.edit' , $robot->id) }}" class="btn btn-default btn-icons"><i class="fa fa-edit"></i></a>

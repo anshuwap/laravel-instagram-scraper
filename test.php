@@ -1,6 +1,8 @@
 <?php
 
-$propagendaPatternTag = '/@[a-zA-Z0-9.\-_]+/';
-$res= preg_match($propagendaPatternTag , ' ffjsdffjfjjfsjdf @8787e  sdasdasd ' , $match);
 
-var_dump($res);
+exec("ping ".'101.230.8.69:8000', $output, $status);
+
+var_dump($output) . PHP_EOL;
+
+var_dump($status);
