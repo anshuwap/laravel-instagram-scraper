@@ -3,11 +3,9 @@
 @section('admin-content')
 <section class="content">
     <div class="container-fluid">
-      <div class="row">
-        <!-- left column -->
         <div class="row">
             @include('errors.msg')
-            <div class="col-12">
+            <div class="col-md-12">
               <div class="card">
                 <div class="card-header">
                   <h3 class="card-title">لیست روبات های پلتفرم</h3>
@@ -74,11 +72,8 @@
               </div>
               <!-- /.card -->
             </div>
-          </div>
-        </div>
         </div>
     </div>
-
 </section>
 @endsection 
 

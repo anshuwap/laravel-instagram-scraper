@@ -87,7 +87,7 @@ class InstagramScraper
     private function storePost(array $medias ,string $username ,int $likeLimit)
     {
         foreach ($medias as $media) {
-            
+
             $postData = [
                 'username' => $username,
                 'ID' => $media->getId(),
@@ -110,13 +110,13 @@ class InstagramScraper
             # Validate that this post is a prppagend Post or Not
             $propagendaPatternTag = '/@[a-zA-Z0-9.\-_]+/';
             preg_match($propagendaPatternTag , $postData['captionOfPost'] , $match);
-
+        
             if(empty($match))
                 continue;
             
             if (strtolower($match[0]) == '@'.$username)
                 continue;
-           
+            
             # Ditermine Limit of like Posts
             $limitLike = !empty($likeLimit) ?  $likeLimit : 20000;
 
@@ -139,8 +139,8 @@ class InstagramScraper
 
     private function videoPost(array $postData ,string $tag)
     {
-        $coverPath = Downloader::downloadFile($postData['image_url'] , self::TP_POST , self::TPMD_IMG);
-        $path      = Downloader::downloadFile($postData['video_url'] , self::TP_POST , self::TPMD_VIDEO);
+        $coverPath = Downloader::downloadFile($postData['image_url'] , $postData['ID'] , self::TPMD_IMG);
+        $path      = Downloader::downloadFile($postData['video_url'] , $postData['ID'], self::TPMD_VIDEO);
 
         Post::create([
             'ID_instagram' => $postData['ID'],
@@ -161,7 +161,7 @@ class InstagramScraper
 
     private function imagePost(array $postData ,string $tag)
     {
-        $path = Downloader::downloadFile($postData['image_url'] , self::TP_POST , self::TPMD_IMG);
+        $path = Downloader::downloadFile($postData['image_url'], $postData['ID'] , self::TPMD_IMG);
 
         Post::create([
             'ID_instagram' => $postData['ID'],
@@ -183,15 +183,15 @@ class InstagramScraper
     {
         $sidecarMedia = [];
 
-        $coverPath = Downloader::downloadFile($postData['image_url'] , self::TPMD_IMG);
+        $coverPath = Downloader::downloadFile($postData['image_url'] , $postData['ID'] , self::TPMD_IMG);
         
         foreach ($postData['sidecar'] as $media){
             
             if($media->getType() == 'video')
-                $sidecarMedia[] = Downloader::downloadFile($postData['video_url'] , self::TPMD_VIDEO);
+                $sidecarMedia[] = Downloader::downloadFile($postData['video_url'] , $postData['ID'] , self::TPMD_VIDEO);
 
             if($media->getType() == 'image')
-                $sidecarMedia[] = Downloader::downloadFile($postData['image_url'] , self::TPMD_IMG);
+                $sidecarMedia[] = Downloader::downloadFile($postData['image_url'] , $postData['ID'] , self::TPMD_IMG);
             
         }
 

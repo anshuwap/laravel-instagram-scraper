@@ -51,7 +51,7 @@ class PostsController extends Controller
         $accountData = ExcelHandler::getDataFromExcel($file , $type);
 
         try {
-            $accountData = $this->validateCounAccountAndRobot($accountData , $robotsID);
+            $accountData = $this->validateCountAccountAndRobot($accountData , $robotsID);
 
             $allLists = array_chunk($accountData , count($accountData)/count($robotsID));
 
@@ -76,7 +76,7 @@ class PostsController extends Controller
 
 
 
-    private function validateCounAccountAndRobot( array $accountData, array $robotsID )
+    private function validateCountAccountAndRobot( array $accountData, array $robotsID )
     {
 
         if(is_float(count($accountData) / count($robotsID))) {
