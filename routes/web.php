@@ -60,5 +60,8 @@ Route::prefix('posts')->group(function () {
 
     Route::post('start' , [PostsController::class , 'startScrap'])->name('start.scrap');
 
+    Route::delete('deleteAll' , [PostsController::class , 'deleteAll'])->name('posts.daleteAll');
+
+    Route::delete('{post_id}/delete' , [PostsController::class , 'deleteOne'])->name('post.deleteOne');
 });
 

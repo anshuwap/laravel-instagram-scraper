@@ -33,4 +33,11 @@
 
 		gtag('config', 'UA-119386393-1');
 	</script>
+
+	<style>
+		.alert {
+			text-align: center;
+    		font-family: 'Vazir';
+		}
+	</style>
 </head>

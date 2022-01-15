@@ -48,7 +48,7 @@ class Robots extends Controller
             return back()->with('failed' , $e->getMessage());
         }
 
-        return back()->with('success' , 'روبات جدید با نام ' . $robot->username . ' ایجاد شد ');
+        return redirect()->route('robots.list')->with('success' , 'روبات جدید با نام ' . $robot->username . ' ایجاد شد ');
     }
 
 
@@ -78,7 +78,7 @@ class Robots extends Controller
             return back()->with('failed' , $e->getMessage());
         }
 
-        return back()->with('success' , 'روبات بروزرسانی شد');
+        return redirect()->route('robots.list')->with('success' , 'روبات بروزرسانی شد');
     }
 
 

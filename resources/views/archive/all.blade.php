@@ -16,51 +16,59 @@
                                 <li class="breadcrumb-item"><a href="{{ route('admin.home') }}"><h5>پنل ادمین</h5></a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Contact Directory</li>
                             </ol>
+                            
                         </nav>
                     </div>
                 </div>
             </div>
             <div class="contact-directory-list">
-                <ul class="row">
-                    @foreach ($posts as $id => $post)
-                    <li class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-                        <div class="contact-directory-box">
-                            <div class="contact-dire-info text-center">
-                                <form action="">
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="">
+                @include('errors.msg')
+                <form action="{{ route('posts.daleteAll') }}" method="post">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" style="font-family: Vazir" class="btn btn-danger">حذف دسته جمعی</button>
+                    <ul class="row">
+                        @foreach ($posts as $id => $post)
+                        <li class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                            <div class="contact-directory-box">
+                                <input type='checkbox' name='delete[]' value="{{ $post->id }}">
+                                <div class="contact-dire-info text-center">
+                                    <div class="contact-avatar">
+                                        <span>
+                                        <img src="/uploads/{{ $post->thumbnail_url }}" alt="تصویر کاور" >
+                                        </span>
                                     </div>
-                                </form>
-                                <div class="contact-avatar">
-                                    <span>
-                                    <img src="" alt="" >
-                                    </span>
+                                    <div class="contact-name">
+                                        <h5>{{ $post->owner }}</h5>
+                                        <p>{{ $post->tag }}</p>
+                                        <div style="padding: 5px;" class="work text-success"><i class="ion-android-time"></i> در مدت زمان : {{ \App\Utilities\TimerPosts::timer($post->date) }}</div>
+                                        <div class="work text-warning"><i class="ion-android-calendar"></i> گرفته شده در  : {{ strtok($post->created_at ,' ') }}</div>
+                                    </div>
+                                    <div class="contact-skill">
+                                        <span style="display: block;" class="badge badge-pill">like : {{ $post->like }}</span>
+                                        <span style="display: block;" class="badge badge-pill">view : {{ $post->view }}</span>
+                                        <span style="display: block;" class="badge badge-pill">comment : {{ $post->comment }}</span>
+                                    </div>
+                                    
                                 </div>
-                                <div class="contact-name">
-                                    <h4></h4>
-                                    <p></p>
-                                    <div class="work text-success"><i class="ion-android-time"></i> </div>
+                                <div class="contact-skill text-center">
+                                    <form action="{{ route('post.deleteOne' , $post->id) }}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="btn btn-outline-danger btn-sm" type="submit">حذف</button>
+                                    </form>
                                 </div>
-                                <div class="contact-skill">
-                                    <span class="badge badge-pill">like :</span>
-                                    <span class="badge badge-pill">view :</span>
-                                    <span class="badge badge-pill">comment :</span>
+                                <div class="view-contact">
+                                    <a href="">مشاهده</a>
                                 </div>
-                                
                             </div>
-                            <div class="contact-skill text-center">
-                                <a href=""><button type="button" class="btn btn-outline-danger btn-sm">Remove</button></a>
-                            </div>
-                            <div class="view-contact">
-                                <a href="">مشاهده</a>
-                            </div>
-                        </div>
-                    </li>
-                    @endforeach
-                </ul>
-                <div>
-                    {{$posts->links('pagination::bootstrap-4')}}
-                </div>
+                        </li>
+                        @endforeach
+                    </ul>
+                    <div>
+                        {{$posts->links('pagination::bootstrap-4')}}
+                    </div>
+                </form>
             </div>
         </div>
     </div>

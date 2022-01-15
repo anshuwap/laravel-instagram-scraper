@@ -18,6 +18,7 @@ use App\Utilities\ExcelHandler;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File as FacadesFile;
+use phpDocumentor\Reflection\DocBlock\Serializer;
 
 class PostsController extends Controller
 {
@@ -101,4 +102,64 @@ class PostsController extends Controller
         return $accountData;
     }
 
+    
+    public function deleteAll(Request $request)
+    {
+        $idForDelete = $request->get('delete') ;
+
+        try {
+            $postsForDelete = Post::whereIn('id', $idForDelete)->get();
+
+            foreach ($postsForDelete->toArray() as $post) {
+    
+                $this->deleteFile($post['thumbnail_url'] , $post['source_url'] , $post['type_media']);
+            }
+    
+            Post::whereIn('id', $idForDelete)->delete();
+    
+        } catch (\Exception $e) {
+            return back()->with('failed' , $e->getMessage());
+        }
+
+        return back()->with('success' , 'پست های انتخاب شده حذف شدند');
+
+    }
+
+
+    public function deleteOne($post_id)
+    {
+        try {
+            $post = Post::find($post_id);
+
+            $this->deleteFile($post->thumbnail_url , $post->source_url , $post->type_media);
+
+            Post::find($post_id)->delete();
+
+        } catch (\Exception $e) {
+            return back()->with('failed' , $e->getMessage());
+        }
+
+        return back()->with('success' , 'پست حذف شد');
+    }
+
+
+    private function deleteFile(string $thumbnail_url , string $source_url ,string $type_media)
+    {
+        if (file_exists(public_path('uploads/') . $thumbnail_url))
+            FacadesFile::delete(public_path('uploads/') . $thumbnail_url);
+
+        if ($type_media == 'sidecar') {
+
+            foreach (unserialize($source_url) as $path) {
+                
+                if (file_exists(public_path('uploads/') . $path))
+                    FacadesFile::delete(public_path('uploads/') . $path);
+
+            }
+        } else {
+
+            if (file_exists(public_path('uploads/') . $source_url))
+                FacadesFile::delete(public_path('uploads/') . $source_url);
+        }
+    }
 }

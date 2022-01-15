@@ -40,7 +40,7 @@ class InstagramScraper
                 'base_uri' => 'https://www.instagram.com/',
                 'connect_timeout' => 25,
                 'read_timeout' => 25,
-                'timeout' => 25.14,
+                'timeout' => 28,
                 'request.options' => [
                     'proxy' => 'tcp://'. $proxy ,
                 ],
@@ -67,17 +67,16 @@ class InstagramScraper
             $like = $account[1];
 
             $instagramAcc = $this->instagram->getAccount($username);
-
+ 
             if($instagramAcc->isPrivate()){
 
                 $this->instagram->follow($this->instagram->getAccount($username)->getId());
                 continue;
             }
 
-            $posts = $this->instagram->getMedias($username , 12);
-          
+            $posts = $this->instagram->getMedias($username , 10);
+
             $this->storePost($posts , $username , $like);
-            
         }
         
     }
@@ -100,39 +99,38 @@ class InstagramScraper
                 'video_url' => $media->getVideoStandardResolutionUrl(),
                 'sidecar' => $media->getSidecarMedias(),
             ];
-
+            
             # Check Media Exist in Database Or notExist
             $existPost = Post::where('ID_instagram' , $postData['ID'])->get();
 
-            if(!empty($existPost->items))
-                continue;
+            if(empty($existPost->toArray())) {
 
-            # Validate that this post is a prppagend Post or Not
-            $propagendaPatternTag = '/@[a-zA-Z0-9.\-_]+/';
-            preg_match($propagendaPatternTag , $postData['captionOfPost'] , $match);
-        
-            if(empty($match))
-                continue;
-            
-            if (strtolower($match[0]) == '@'.$username)
-                continue;
-            
-            # Ditermine Limit of like Posts
-            $limitLike = !empty($likeLimit) ?  $likeLimit : 20000;
+                # Validate that this post is a prppagend Post or Not
+                $propagendaPatternTag = '/@[a-zA-Z0-9.\-_]+/';
+                preg_match($propagendaPatternTag , $postData['captionOfPost'] , $match);
 
-            if($postData['like'] < intval($limitLike) / 2.5)
-                continue;
+                if(empty($match))
+                    continue;
 
-            # Listed Post by Type of theim {One Video , One Image or SideCar Post}
-            if ($media->getType() === 'video')
-                $this->videoPost($postData , $match[0]);
+                if (strtolower($match[0]) == '@'.$username)
+                    continue;
 
-            if ($media->getType() === 'image')
-                $this->imagePost($postData , $match[0]);
+                # Ditermine Limit of like Posts
+                $limitLike = !empty($likeLimit) ?  $likeLimit : 20000;
 
-            if ($media->getType() === 'sidecar')
-                $this->sidecarPost($postData , $match[0]);
+                if($postData['like'] < intval($limitLike) / 2.5)
+                    continue;
 
+                # Listed Post by Type of theim {One Video , One Image or SideCar Post}
+                if ($media->getType() === 'video')
+                    $this->videoPost($postData , $match[0]);
+
+                if ($media->getType() === 'image')
+                    $this->imagePost($postData , $match[0]);
+
+                if ($media->getType() === 'sidecar')
+                    $this->sidecarPost($postData , $match[0]);
+            }
         }
     }
 
