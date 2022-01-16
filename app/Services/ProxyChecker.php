@@ -33,7 +33,7 @@ class ProxyChecker
     }
 
 
-    private function CheckSingleProxy($ip, $port,Model $model ,$echoResults=true)
+    public function CheckSingleProxy($ip, $port,Model $model ,$echoResults=true)
     {
        $passByIPPort= $ip . ":" . $port;
         

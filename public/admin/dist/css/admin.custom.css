@@ -62,3 +62,7 @@ label {
 .pagination {
     direction: ltr;
 }
+
+.card-header {
+    direction: ltr;
+}

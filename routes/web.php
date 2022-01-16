@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\Home;
 use App\Http\Controllers\Admin\Proxies;
 use App\Http\Controllers\Admin\Robots;
+use App\Http\Controllers\Admin\Users;
 use App\Http\Controllers\Auth\Login;
 use App\Http\Controllers\Auth\Register;
 use App\Http\Controllers\PostsController;
@@ -69,6 +70,22 @@ Route::prefix('admin')->group(function () {
         Route::delete('{proxy_id}/delete' , [Proxies::class , 'delete'])->name('proxies.delete');
 
         Route::delete('deleteAll' , [Proxies::class , 'deleteAll'])->name('proxies.deleteAll');
+    });
+
+    Route::prefix('users')->group(function () {
+
+        Route::get('' , [Users::class , 'showAll'])->name('users.showAll');
+
+        Route::get('add' , [Users::class , 'add'])->name('users.add');
+
+        Route::post('store' , [Users::class , 'store'])->name('users.store');
+
+        Route::get('{user_id}/edit' , [Users::class , 'edit'])->name('users.edit');
+
+        Route::put('{user_id}/update' , [Users::class , 'update'])->name('users.update');
+
+        Route::delete('{user_id}/delete' , [Users::class , 'delete'])->name('users.delete');
+
     });
 
 });

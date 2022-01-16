@@ -22,7 +22,7 @@ class Proxies extends Controller
     
     public function showAll()
     {
-        $proxies = Proxy::orderBy('id', 'desc')->paginate(10);
+        $proxies = Proxy::paginate(15);
         
         return view('admin.list-proxies' , ['proxies' => $proxies]);
     }
@@ -30,11 +30,11 @@ class Proxies extends Controller
     public function checkProxies()
     {
         try {
-            $proxiesName = array_column(Proxy::select('proxy')->orderBy('id', 'desc')->get()->toArray() , 'proxy');
+            $proxiesName = array_column(Proxy::select('proxy')->get()->toArray() , 'proxy');
 
             $checkProxies = new ProxyChecker();
 
-            $checkProxies->CheckMultiProxy(array_slice($proxiesName , 0 , Robot::all()->count() + 3) , new Proxy());
+            $checkProxies->CheckMultiProxy(array_slice($proxiesName , 0 , Robot::all()->count() + 4) , new Proxy());
         } catch (\Exception $e) {
             return back()->with('failed' , $e->getMessage());
         }
@@ -76,7 +76,7 @@ class Proxies extends Controller
             return back()->with('failed' , $e->getMessage());
         }
         
-        return redirect()->route('proxies.showAll')->with('success' , 'پروکسی ها ذخیره شدن برای بررسی وضعیت پروکسی ها صفحه رو دو بار ریلود کنید');
+        return redirect()->route('proxies.showAll')->with('success' , 'پروکسی ها ذخیره شدند');
     }
 
 
@@ -95,6 +95,20 @@ class Proxies extends Controller
         Proxy::whereIn('id', $idForDelete)->delete();
 
         return back()->with('success' , 'پروکسی ها حذف شد');
+    }
 
+
+    public static function changProxiesForRobot()
+    {
+        $robots = Robot::all()->toArray();
+
+        $proxies= array_slice(array_column(Proxy::select('proxy')->get()->toArray() , 'proxy') ,0 , count($robots));
+        
+        foreach (array_combine($proxies , $robots) as $proxy => $robot) {
+            
+            $robot->update(['proxy' => $proxy]);
+        }
+
+        Proxy::whereIn('proxy', $proxies)->delete();
     }
 }

@@ -5,6 +5,9 @@
     <div class="container-fluid">
       @include('errors.msg')
         <div class="row">
+          <a href="{{ route('proxies.checkStatus') }}" style="width: 14em;" class="btn btn-block btn-outline-primary">بروزرسانی وضعیت پروکسی ها</a>
+        </div>
+        <div class="row">
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header">
@@ -15,7 +18,7 @@
                       <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
   
                       <div class="input-group-append">
-                        <button type="submit" class="btn btn-default">
+                        <button type="submit" class="btn btn-default" style="width:3em; margin: 0em">
                           <i class="fas fa-search"></i>
                         </button>
                       </div>

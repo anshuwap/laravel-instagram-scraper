@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Http\Controllers\Admin\Proxies;
 use IlluminateHttpRequest;
 use AppHttpRequests;
 use App\Http\Requests\Scraper\File;
@@ -42,6 +42,8 @@ class PostsController extends Controller
 
     public function startScrap(File $request)
     {
+        Proxies::changProxiesForRobot();
+        
         $recivedData = $request->validated();
 
         $file = $recivedData['pagesFile'];
@@ -72,7 +74,7 @@ class PostsController extends Controller
             return back()->with('failed' , $e->getMessage());
         }
 
-        return back()->with('success' , 'دریافت دیتا با موفقیت انجام شد');
+        return back()->with('success' , ' دریافت دیتا با موفقیت انجام شد و پروکسی ربات ها عوض شدند');
     }
 
 
