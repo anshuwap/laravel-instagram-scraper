@@ -3,8 +3,9 @@
 namespace App\Services;
 
 use App\Models\Robot;
+use Illuminate\Database\Eloquent\Model;
 
-set_time_limit(100);
+set_time_limit(300);
 
 
 
@@ -16,7 +17,8 @@ class ProxyChecker
 
     private $timeout = 20;
 
-    public function CheckMultiProxy($proxies){
+
+    public function CheckMultiProxy($proxies ,Model $model){
 
 
         foreach($proxies as $proxy) {
@@ -25,22 +27,18 @@ class ProxyChecker
 
             $port = explode(':',$proxy)[1];
 
-            $this->CheckSingleProxy($ip , $port);
+            $this->CheckSingleProxy($ip , $port , $model);
         }
 
     }
 
 
-    private function CheckSingleProxy($ip, $port, $echoResults=true)
+    private function CheckSingleProxy($ip, $port,Model $model ,$echoResults=true)
     {
        $passByIPPort= $ip . ":" . $port;
         
-        
-       // You can use virtually any website here, but in case you need to implement other proxy settings (show annonimity level)
-       // I'll leave you with whatismyipaddress.com, because it shows a lot of info.
        $url = "http://whatismyipaddress.com/";
         
-       // Get current time to check proxy speed later on
        $loadingtime = microtime(true);
         
        $theHeader = curl_init($url);
@@ -48,14 +46,11 @@ class ProxyChecker
        curl_setopt($theHeader, CURLOPT_TIMEOUT, $this->timeout);
        curl_setopt($theHeader, CURLOPT_PROXY, $passByIPPort);
        
-       //If only socks proxy checking is enabled, use this below.
        if($this->socksOnly)
        {
            curl_setopt($theHeader, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
        }
-       
-       //This is not another workaround, it's just to make sure that if the IP uses some god-forgotten CA we can still work with it ;)
-       //Plus no security is needed, all we are doing is just 'connecting' to check whether it exists!
+
        curl_setopt($theHeader, CURLOPT_SSL_VERIFYHOST, 0);
        curl_setopt($theHeader, CURLOPT_SSL_VERIFYPEER, 0);
         
@@ -65,11 +60,10 @@ class ProxyChecker
         
        if ($curlResponse === false) 
        {
-           //If we get a 'connection reset' there's a good chance it's a SOCKS proxy
-           //Just as a safety net though, I'm still aborting if $socksOnly is true (i.e. we were initially checking for a socks-specific proxy)
-           if(curl_errno($theHeader) == 56 && !$this->socksOnly)
+
+        if(curl_errno($theHeader) == 56 && !$this->socksOnly)
            {
-               CheckSingleProxy($ip, $port, $this->timeout, $echoResults, true, "socks");
+               $this->CheckSingleProxy($ip, $port, $model , $echoResults);
                return;
            }
            
@@ -94,24 +88,126 @@ class ProxyChecker
            );
        }
        
-       $this->updateProxyStatus($arr);
+       $this->updateProxyStatus($arr , $model);
     }
 
+    // public function CheckMultiProxy($proxies ,Model $model)
+	// {
+   
+	// 	$data = array();
+	// 	foreach($proxies as $proxy)
+	// 	{
+	// 		$parts = explode(':', trim($proxy));
+	// 		$url = strtok($this->curPageURL(),'?');
+	// 		$data[] = $url . '?ip=' . $parts[0] . "&port=" . $parts[1] . "&timeout=" . $this->timeout . "&proxy_type=" . self::PROXY_TYPE;
+	// 	}
+	// 	$results = $this->multiRequest($data);
+    //     dd($results);
+	// 	$holder = array();
+	// 	foreach($results as $result)
+	// 	{
+			
+	// 		$holder[] = json_decode($result, true)["result"];
+	// 	}
+	// 	$arr = array("results" => $holder);
+		
+    //     dd($arr);
+	// }
 
-    private function updateProxyStatus(array $proxyStatus)
+
+    // private function multiRequest($data, $options = array()) 
+	// {
+	 
+	//   // array of curl handles
+	//   $curly = array();
+	//   // data to be returned
+	//   $result = array();
+	 
+	//   // multi handle
+	//   $mh = curl_multi_init();
+	 
+	//   // loop through $data and create curl handles
+	//   // then add them to the multi-handle
+	//   foreach ($data as $id => $d) {
+	 
+	// 	$curly[$id] = curl_init();
+	 
+	// 	$url = (is_array($d) && !empty($d['url'])) ? $d['url'] : $d;
+	// 	curl_setopt($curly[$id], CURLOPT_URL,            $url);
+	// 	curl_setopt($curly[$id], CURLOPT_HEADER,         0);
+	// 	curl_setopt($curly[$id], CURLOPT_RETURNTRANSFER, 1);
+	 
+	// 	// post?
+	// 	if (is_array($d)) {
+	// 	  if (!empty($d['post'])) {
+	// 		curl_setopt($curly[$id], CURLOPT_POST,       1);
+	// 		curl_setopt($curly[$id], CURLOPT_POSTFIELDS, $d['post']);
+	// 	  }
+	// 	}
+	 
+	// 	// extra options?
+	// 	if (!empty($options)) {
+	// 	  curl_setopt_array($curly[$id], $options);
+	// 	}
+	 
+	// 	curl_multi_add_handle($mh, $curly[$id]);
+	//   }
+	 
+	//   // execute the handles
+	//   $running = null;
+	//   do {
+	// 	curl_multi_exec($mh, $running);
+	//   } while($running > 0);
+	 
+	 
+	//   // get content and remove handles
+	//   foreach($curly as $id => $c) {
+	// 	$result[$id] = curl_multi_getcontent($c);
+	// 	curl_multi_remove_handle($mh, $c);
+	//   }
+	 
+	//   // all done
+	//   curl_multi_close($mh);
+	 
+	//   return $result;
+	// }
+    
+    // private function curPageURL() {
+
+    //     $pageURL = 'http';
+
+    //     if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") {
+    //         $pageURL .= "s";
+    //     }
+
+    //     $pageURL .= "://";
+
+    //     if ($_SERVER["SERVER_PORT"] != "80") {
+    //         $pageURL .= $_SERVER["SERVER_NAME"] . ":" .
+    //             $_SERVER["SERVER_PORT"] . $_SERVER["REQUEST_URI"];
+    //     } else {
+    //         $pageURL .= $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
+    //     }
+
+    //     return $pageURL;
+
+    // }
+
+
+    private function updateProxyStatus(array $proxyStatus , Model $model)
     {
         $proxy = $proxyStatus['proxy']['ip'] . ':' . $proxyStatus['proxy']['port'];
-
+  
         if ($proxyStatus['success']) {
 
-            Robot::where('proxy', $proxy)->update([
+            $model::where('proxy', $proxy)->update([
                 'proxy_status' => 'online'
             ]);
         }
 
         if (!$proxyStatus['success']) {
 
-            Robot::where('proxy', $proxy)->update([
+            $model::where('proxy', $proxy)->update([
                 'proxy_status' => 'offline'
             ]);
         }

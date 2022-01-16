@@ -3,8 +3,8 @@
 @section('admin-content')
 <section class="content">
     <div class="container-fluid">
-      <div class="row">
         @include('errors.msg')
+      <div class="row">
         <!-- left column -->
             <div class="col-md-12">
                 <div class="card card-primary">
@@ -32,7 +32,7 @@
                         <!-- /.card-body -->
 
                         <div class="card-footer">
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn btn-primary">افزودن</button>
                         </div>
                     </form>
                 </div>

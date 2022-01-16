@@ -11,17 +11,23 @@ use Illuminate\Http\Request;
 
 class Robots extends Controller
 {
+
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     
     
     public function showAll()
     {
         $robots = Robot::paginate(10);
-
+        
         $proxies = array_column(Robot::select('proxy')->get()->toArray() , 'proxy');
 
         $checkProxies = new ProxyChecker();
 
-        $checkProxies->CheckMultiProxy($proxies);
+        $checkProxies->CheckMultiProxy($proxies , new Robot());
 
         return view('admin.list-robots' , ['robots' => $robots]);
     }
@@ -92,4 +98,6 @@ class Robots extends Controller
 
         return back()->with('success' , 'روبات حذف شد');
     }
+
+
 }

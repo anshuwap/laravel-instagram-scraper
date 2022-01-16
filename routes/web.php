@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\Home;
+use App\Http\Controllers\Admin\Proxies;
 use App\Http\Controllers\Admin\Robots;
 use App\Http\Controllers\Auth\Login;
 use App\Http\Controllers\Auth\Register;
@@ -17,6 +18,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('' , function (){
+
+    return redirect()->route('login.showPage');
+});
 
 Route::prefix('auth')->group(function (){
 
@@ -48,6 +54,21 @@ Route::prefix('admin')->group(function () {
         Route::put('{robot_id}/update' , [Robots::class , 'update'])->name('robots.update');
 
         Route::delete('{robot_id}/delete' , [Robots::class , 'delete'])->name('robots.delete');
+    });
+
+    Route::prefix('proxies')->group(function () {
+
+        Route::get('' , [Proxies::class , 'showAll'])->name('proxies.showAll');
+
+        Route::get('add' , [Proxies::class , 'add'])->name('proxies.add');
+
+        Route::get('check' , [Proxies::class , 'checkProxies'])->name('proxies.checkStatus');
+
+        Route::post('store' , [Proxies::class , 'store'])->name('proxies.store');
+
+        Route::delete('{proxy_id}/delete' , [Proxies::class , 'delete'])->name('proxies.delete');
+
+        Route::delete('deleteAll' , [Proxies::class , 'deleteAll'])->name('proxies.deleteAll');
     });
 
 });

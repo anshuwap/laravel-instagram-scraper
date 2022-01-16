@@ -24,6 +24,7 @@ h3 {
 .card-body {
     font-family: 'vazir';
     direction: rtl;
+    text-align: center;
 }
 
 .alert {
@@ -41,4 +42,23 @@ h3 {
 
 .container-fluid {
     padding: 1em;
+}
+
+
+#add-proxy , .btn {
+    font-family: 'Vazir';
+    margin: 10px;
+    width: 12em;
+}
+
+label {
+    display: flex;
+}
+
+.custom-file {
+    direction: ltr;
+}
+
+.pagination {
+    direction: ltr;
 }

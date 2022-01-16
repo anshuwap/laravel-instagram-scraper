@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\Auth;
 
 class User extends Controller
 {
+
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     
 
     public static function getGravatarUser()

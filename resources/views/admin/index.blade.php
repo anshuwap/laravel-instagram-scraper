@@ -28,7 +28,7 @@
                   <p>تعداد ربات ها</p>
                 </div>
                 <div class="icon">
-                  <i class="ion ion-stats-bars"></i>
+                  <i class="nav-icon fas fa-robot"></i>
                 </div>
                 <a href="{{ route('robots.list') }}" class="small-box-footer">بیشتر <i class="fas fa-arrow-circle-right"></i></a>
               </div>
@@ -46,6 +46,21 @@
                   <i class="ion ion-person-add"></i>
                 </div>
                 <a href="" class="small-box-footer">بیشتر <i class="fas fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-danger">
+                <div class="inner">
+                  <h3>{{ $proxiesCount }}</h3>
+  
+                  <p>پروکسی ها</p>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-clipboard-check"></i>
+                </div>
+                <a href="{{ route('proxies.showAll') }}" class="small-box-footer">بیشتر <i class="fas fa-arrow-circle-right"></i></a>
               </div>
             </div>
             <!-- ./col -->

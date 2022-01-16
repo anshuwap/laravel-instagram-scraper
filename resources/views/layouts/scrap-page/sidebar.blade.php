@@ -117,6 +117,12 @@
                     <p>ایجاد روبات ها</p>
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a href="{{ route('proxies.showAll') }}" class="nav-link">
+                    <i class="fas fa-clipboard-check"></i>
+                      <p>پروکسی ها</p>
+                  </a>
+                </li>
               </ul>
             </li>
             <li class="nav-item menu-open">

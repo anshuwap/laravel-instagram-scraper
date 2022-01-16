@@ -4,12 +4,7 @@ namespace App\Http\Controllers;
 
 
 use IlluminateHttpRequest;
-
-
-
 use AppHttpRequests;
-
-
 use App\Http\Requests\Scraper\File;
 use App\Models\Post;
 use App\Models\Robot;
@@ -23,6 +18,11 @@ use phpDocumentor\Reflection\DocBlock\Serializer;
 class PostsController extends Controller
 {
     
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function showAll()
     {

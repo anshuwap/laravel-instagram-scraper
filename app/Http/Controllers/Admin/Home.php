@@ -4,20 +4,30 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use App\Models\Proxy;
 use App\Models\Robot;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
+
+
 
 class Home extends Controller
 {
+
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     
     public function index()
     {
         $countPosts = Post::all()->count();
         $usersCount = User::all()->count();
         $robotsCount = Robot::all()->count();
+        $proxiesCount = Proxy::all()->count();
 
         $robots = Robot::all();
 
@@ -26,6 +36,7 @@ class Home extends Controller
             'postCount' => $countPosts,
             'usersCount' => $usersCount,
             'robotsCount' => $robotsCount,
+            'proxiesCount' => $proxiesCount,
 
         ]);
     }
