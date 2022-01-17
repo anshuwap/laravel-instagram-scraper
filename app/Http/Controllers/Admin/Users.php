@@ -7,7 +7,6 @@ use App\Http\Requests\Admin\Users\StoreUser;
 use App\Http\Requests\Admin\Users\UserUpdate;
 use App\Models\User;
 use App\Traits\Enum;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 

@@ -7,7 +7,7 @@ use App\Http\Requests\Robots\StoreRobot;
 use App\Http\Requests\Robots\updateRobot;
 use App\Models\Robot;
 use App\Services\ProxyChecker;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Robots extends Controller
 {

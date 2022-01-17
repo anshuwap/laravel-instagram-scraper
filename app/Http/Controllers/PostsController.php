@@ -3,17 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Admin\Proxies;
-use IlluminateHttpRequest;
-use AppHttpRequests;
+
 use App\Http\Requests\Scraper\File;
 use App\Models\Post;
 use App\Models\Robot;
 use App\Services\InstagramScraper;
 use App\Utilities\ExcelHandler;
-use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File as FacadesFile;
-use phpDocumentor\Reflection\DocBlock\Serializer;
+
 
 class PostsController extends Controller
 {
@@ -22,6 +21,8 @@ class PostsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        if (Auth::guard()->user()->permission != 'admin')
+            return redirect()->route('errors.not-admin');
     }
 
     public function showAll()

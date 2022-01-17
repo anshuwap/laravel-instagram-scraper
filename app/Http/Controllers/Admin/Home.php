@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Middleware\CheckAdmin;
 use App\Models\Post;
 use App\Models\Proxy;
 use App\Models\Robot;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+
 
 
 

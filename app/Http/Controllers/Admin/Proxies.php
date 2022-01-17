@@ -9,6 +9,7 @@ use App\Models\Robot;
 use App\Services\ProxyChecker;
 use App\Utilities\ExcelHandler;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File as FacadesFile;
 
 class Proxies extends Controller

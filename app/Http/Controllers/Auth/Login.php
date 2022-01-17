@@ -18,11 +18,16 @@ class Login extends Controller
     {
         $recivedData = $request->validated();
 
-        if (Auth::attempt($recivedData))
-            return redirect()->route('admin.home')->with('success' , 'وارد شدید');
-
+        
         if (!Auth::attempt($recivedData))
             return back()->with('failed' , 'کاربر قبلا ثبت نشده است');
+
+        if (Auth::guard()->user()->permission != 'admin')
+             return view('errors.not-admin');
+
+        
+        return redirect()->route('admin.home')->with('success' , 'وارد شدید');
+
 
     }
 }
