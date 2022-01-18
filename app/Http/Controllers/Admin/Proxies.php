@@ -36,6 +36,7 @@ class Proxies extends Controller
             $checkProxies = new ProxyChecker();
 
             $checkProxies->CheckMultiProxy(array_slice($proxiesName , 0 , Robot::all()->count() + 4) , new Proxy());
+
         } catch (\Exception $e) {
             return back()->with('failed' , $e->getMessage());
         }

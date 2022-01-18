@@ -26,114 +26,49 @@
                     <div class="product-wrap">
                         <div class="product-detail-wrap mb-30"> 
                             <div class="row">
-                                {{-- <div class="col-md-10" style="right: 12em;">
-                                    @if ($post->type_media != 'sidecar')
-                                        <div class="product-slider slider-arrow">
-                                            <div class="product-slide">
-                                            @if (is_int(strpos(pathinfo($post->source_url, PATHINFO_EXTENSION) , 'png')))
-                                                <img src="/uploads/{{ $post->source_url  }}" alt="">	
-                                            @endif
-                                            @if (is_int(strpos(pathinfo($post->source_url, PATHINFO_EXTENSION) , 'mp4')))
-                                                <video controls>
-                                                      <source src="/uploads/{{ $post->source_url  }}" type="video/mp4">
-                                                </video>
-                                            @endif
-                                            </div>
-                                        </div>
-                                        <div class="product-slider-nav">
-                                            <div class="product-slide">
-                                            @if (is_int(strpos(pathinfo($post->source_url, PATHINFO_EXTENSION) , 'png')))
-                                                <img src="/uploads/{{ $post->source_url  }}" alt="">	
-                                            @endif
-                                            @if (is_int(strpos(pathinfo($post->source_url, PATHINFO_EXTENSION) , 'mp4')))
-                                                <img src="/uploads/{{ $post->source_url  }}">
-                                            @endif
-                                            </div>
-                                        </div>
-                                    @endif
-                                    @if ($post->type_media == 'sidecar')
-                                        <div class="product-slider slider-arrow">
-                                        @foreach (unserialize($post->source_url) as $path)
-                                            @if (is_int(strpos(pathinfo($path, PATHINFO_EXTENSION) , 'png')))
-                                            <div class="product-slide">
-                                                <img src="/uploads/{{ $path  }}" alt="">
-                                            </div>	
-                                            @endif
-                                            @if (is_int(strpos(pathinfo($path, PATHINFO_EXTENSION) , 'mp4')))
-                                            <div class="product-slide">
-                                                <video controls>
-                                                      <source src="/uploads/{{ $path  }}" type="video/mp4">
-                                                </video>		
-                                            </div>								
-                                            @endif
-                                        @endforeach
-                                        </div>
-                                        <div class="product-slider-nav">
-                                            
-                                        @foreach (unserialize($post->source_url) as $path)
-                                            @if (is_int(strpos(pathinfo($path, PATHINFO_EXTENSION) , 'png')))
-                                            <div class="product-slide">
-                                                <img src="/uploads/{{ $path  }}" alt="">
-                                            </div>	
-                                            @endif
-                                            @if (is_int(strpos(pathinfo($path, PATHINFO_EXTENSION) , 'mp4')))
-                                            <div class="product-slide">
-                                                <video controls>
-                                                    <source src="/uploads/{{ $path  }}" type="video/mp4">
-                                                </video>		
-                                            </div>								
-                                            @endif
-                                        @endforeach
-                                        </div>
-                                    @endif
-                                </div> --}}
-
-                                <div class="container" style="direction: ltr">
-                                    <div class="slider">
-                                      @if($post->type_media == 'sidecar')
-                                      @foreach(unserialize($post->source_url) as $key => $path)
-                                      @if(is_int(strpos(pathinfo($path, PATHINFO_EXTENSION) , 'png')))
-                                      <img class="{{$key == 0 ? 'active' : ''}}" src="/uploads/{{ $path  }}">
+                                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel" style="width: 40em; right: 18em;">
+                                    <div class="carousel-inner" style="border-radius: 5px;">
+                                    @if($post->type_media == 'sidecar')
+                                    @foreach(unserialize($post->source_url) as $key => $path)
+                                    @if(is_int(strpos(pathinfo($path, PATHINFO_EXTENSION) , 'png')))
+                                      <div class="carousel-item {{$key == 0 ? 'active' : ''}}">
+                                        <img class="d-block w-100" src="/uploads/{{ $path  }}">
+                                      </div>
                                       @endif
                                       @if (is_int(strpos(pathinfo($path, PATHINFO_EXTENSION) , 'mp4')))
+                                      <div class="carousel-item {{$key == 0 ? 'active' : ''}}">
                                         <video controls>
-                                            <source class="{{$key == 0 ? 'active' : ''}}" src="/uploads/{{ $path  }}" type="video/mp4">
-                                        </video>		
+                                            <source src="/uploads/{{ $path  }}" type="video/mp4">
+                                        </video>
+                                      </div>
                                       @endif
                                       @endforeach
                                       @endif
 
                                       @if($post->type_media != 'sidecar')
                                       @if(is_int(strpos(pathinfo($post->source_url, PATHINFO_EXTENSION) , 'png')))
-                                      <img class="active" src="/uploads/{{ $post->source_url  }}">
-                                      @endif
-                                      @if (is_int(strpos(pathinfo($post->source_url, PATHINFO_EXTENSION) , 'mp4')))
-                                        <video controls>
-                                            <source class="active" src="/uploads/{{ $post->source_url  }}" type="video/mp4">
-                                        </video>		
-                                      @endif
-                                      @endif
+                                        <div class="carousel-item">
+                                          <img class="d-block w-100" src="/uploads/{{ $post->source_url  }}">
+                                        </div>
+                                        @endif
+                                        @if (is_int(strpos(pathinfo($post->source_url, PATHINFO_EXTENSION) , 'mp4')))
+                                        <div class="carousel-item">
+                                          <video controls>
+                                              <source src="/uploads/{{ $post->source_url  }}" type="video/mp4">
+                                          </video>
+                                        </div>
+                                        @endif
+                                        @endif
                                     </div>
-                                    <nav class="slider-nav">
-                                      <ul>
-                                        <li class="arrow">
-                                          <button class="previous">
-                                            <span>
-                                              <i class="ion-arrow-left-c"></i>
-                                            </span>
-                                          </button>
-                                        </li>
-                                        <li class="arrow">
-                                          <button class="next">
-                                            <span>
-                                              <i class="ion-arrow-right-c"></i>
-                                            </span>
-                                          </button>
-                                        </li>
-                                      </ul>
-                                    </nav>
+                                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                      <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                      <span class="sr-only">Next</span>
+                                    </a>
                                 </div>
-   
                                 <div class="col-md-12" style=" margin-top: 1em;font-family: Vazir">
                                     <div class="contact-directory-box">
                                         <div class="contact-dire-info text-center">

@@ -18,6 +18,11 @@
         text-align: center;
         font-weight: bold;
     }
+
+    label , input ,a ,h2{
+        font-family: Vazir;
+        direction: rtl;
+    }
 </style>
 <body>
 

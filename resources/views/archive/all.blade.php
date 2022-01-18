@@ -26,7 +26,7 @@
                 <form action="{{ route('posts.daleteAll') }}" method="post">
                     @csrf
                     @method('delete')
-                    <button type="submit" style="font-family: Vazir" class="btn btn-danger">حذف دسته جمعی</button>
+                    <button type="submit" style="font-family: Vazir; margin-bottom: 1em;" class="btn btn-danger">حذف همه</button>
                     <ul class="row">
                         @foreach ($posts as $id => $post)
                         <li class="col-xl-4 col-lg-4 col-md-6 col-sm-12" style="font-family: Vazir">
