@@ -21,8 +21,6 @@ class PostsController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        if (Auth::guard()->user()->permission != 'admin')
-            return redirect()->route('errors.not-admin');
     }
 
     public function showAll()
@@ -31,6 +29,15 @@ class PostsController extends Controller
 
         return view('archive.all' , ['posts' => $posts]);
     }
+
+
+    public function single(int $post_id)
+    {
+        $post = Post::find($post_id);
+        
+        return view('archive.single', ['post' => $post]);
+    }
+
 
     public function add()
     {
@@ -43,7 +50,6 @@ class PostsController extends Controller
 
     public function startScrap(File $request)
     {
-        Proxies::changProxiesForRobot();
         
         $recivedData = $request->validated();
 
@@ -70,6 +76,8 @@ class PostsController extends Controller
 
                 $scrap->run(); 
             }
+
+            Proxies::changProxiesForRobot($robotsID);
 
         } catch (\Exception $e) {
             return back()->with('failed' , $e->getMessage());

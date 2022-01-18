@@ -95,12 +95,14 @@ Route::prefix('posts')->group(function () {
 
     Route::get('' , [PostsController::class , 'showAll'])->name('posts.showAll');
 
+    Route::get('{post_id}/show' , [PostsController::class , 'single'])->name('posts.single');
+
     Route::get('scrap' , [PostsController::class , 'add'])->name('posts.scrap.showPage');
 
     Route::post('start' , [PostsController::class , 'startScrap'])->name('start.scrap');
 
     Route::delete('deleteAll' , [PostsController::class , 'deleteAll'])->name('posts.daleteAll');
 
-    Route::delete('{post_id}/delete' , [PostsController::class , 'deleteOne'])->name('post.deleteOne');
+    Route::delete('{post_id}/delete' , [PostsController::class , 'deleteOne'])->name('posts.deleteOne');
 });
 

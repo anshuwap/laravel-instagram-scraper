@@ -40,7 +40,7 @@ class Proxies extends Controller
             return back()->with('failed' , $e->getMessage());
         }
 
-        return back()->with('success' , 'چند پروکسی اول برای استفاده شما بروزرسانی وضعیت شدند');
+        return back()->with('success' , '.ضعیت پروکسی های اول برای استفاده برروزرسانی شد ');
     }
 
 
@@ -99,15 +99,15 @@ class Proxies extends Controller
     }
 
 
-    public static function changProxiesForRobot()
+    public static function changProxiesForRobot(array $robotsID)
     {
-        $robots = Robot::all()->toArray();
-
-        $proxies= array_slice(array_column(Proxy::select('proxy')->get()->toArray() , 'proxy') ,0 , count($robots));
+        $robots = Robot::whereIn('id', $robotsID)->get()->toArray();
         
+        $proxies= array_slice(array_column(Proxy::select('proxy')->get()->toArray() , 'proxy') ,0 , count($robots));
+
         foreach (array_combine($proxies , $robots) as $proxy => $robot) {
             
-            $robot->update(['proxy' => $proxy]);
+            Robot::find($robot['id'])->update(['proxy' => $proxy]);
         }
 
         Proxy::whereIn('proxy', $proxies)->delete();

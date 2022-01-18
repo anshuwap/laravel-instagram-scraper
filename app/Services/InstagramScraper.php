@@ -67,7 +67,10 @@ class InstagramScraper
             $like = $account[1];
 
             $instagramAcc = $this->instagram->getAccount($username);
- 
+
+            if(is_null($instagramAcc))
+                continue;
+
             if($instagramAcc->isPrivate()){
 
                 $this->instagram->follow($this->instagram->getAccount($username)->getId());
@@ -99,7 +102,7 @@ class InstagramScraper
                 'video_url' => $media->getVideoStandardResolutionUrl(),
                 'sidecar' => $media->getSidecarMedias(),
             ];
-            
+
             # Check Media Exist in Database Or notExist
             $existPost = Post::where('ID_instagram' , $postData['ID'])->get();
 
@@ -118,7 +121,7 @@ class InstagramScraper
                 # Ditermine Limit of like Posts
                 $limitLike = !empty($likeLimit) ?  $likeLimit : 20000;
 
-                if($postData['like'] < intval($limitLike) / 2.5)
+                if($postData['like'] < intval($limitLike))
                     continue;
 
                 # Listed Post by Type of theim {One Video , One Image or SideCar Post}
@@ -180,16 +183,16 @@ class InstagramScraper
     private function sidecarPost(array $postData ,string $tag)
     {
         $sidecarMedia = [];
-
+        
         $coverPath = Downloader::downloadFile($postData['image_url'] , $postData['ID'] , self::TPMD_IMG);
         
         foreach ($postData['sidecar'] as $media){
             
             if($media->getType() == 'video')
-                $sidecarMedia[] = Downloader::downloadFile($postData['video_url'] , $postData['ID'] , self::TPMD_VIDEO);
+                $sidecarMedia[] = Downloader::downloadFile($media->getVideoStandardResolutionUrl() , $postData['ID'] , self::TPMD_VIDEO);
 
             if($media->getType() == 'image')
-                $sidecarMedia[] = Downloader::downloadFile($postData['image_url'] , $postData['ID'] , self::TPMD_IMG);
+                $sidecarMedia[] = Downloader::downloadFile($media->getImageStandardResolutionUrl() , $postData['ID'] , self::TPMD_IMG);
             
         }
 

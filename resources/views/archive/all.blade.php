@@ -4,7 +4,7 @@
 
 <div class="pd-ltr-20 xs-pd-20-10">
     <div class="min-height-200px">
-        <div class="container pd-0">
+        <div class="container-parent pd-0">
             <div class="page-header">
                 <div class="row">
                     <div class="col-md-12 col-sm-12">
@@ -29,7 +29,7 @@
                     <button type="submit" style="font-family: Vazir" class="btn btn-danger">حذف دسته جمعی</button>
                     <ul class="row">
                         @foreach ($posts as $id => $post)
-                        <li class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                        <li class="col-xl-4 col-lg-4 col-md-6 col-sm-12" style="font-family: Vazir">
                             <div class="contact-directory-box">
                                 <input type='checkbox' name='delete[]' value="{{ $post->id }}">
                                 <div class="contact-dire-info text-center">
@@ -51,15 +51,8 @@
                                     </div>
                                     
                                 </div>
-                                <div class="contact-skill text-center">
-                                    <form action="{{ route('post.deleteOne' , $post->id) }}" method="post">
-                                        @csrf
-                                        @method('delete')
-                                        <button class="btn btn-outline-danger btn-sm" type="submit">حذف</button>
-                                    </form>
-                                </div>
                                 <div class="view-contact">
-                                    <a href="">مشاهده</a>
+                                    <a href="{{ route('posts.single', $post->id) }}">مشاهده</a>
                                 </div>
                             </div>
                         </li>

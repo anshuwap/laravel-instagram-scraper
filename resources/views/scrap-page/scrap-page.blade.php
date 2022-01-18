@@ -37,7 +37,7 @@
                     
                 </div>
                 <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">ارسال</button>
                 </div>
             </form>
         </div>
