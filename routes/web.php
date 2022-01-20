@@ -39,7 +39,7 @@ Route::prefix('auth')->group(function (){
 });
 
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('auth')->group(function () {
 
     Route::get('dashboard' , [Home::class , 'index'])->name('admin.home');
 
@@ -91,11 +91,11 @@ Route::prefix('admin')->group(function () {
 
 });
 
-Route::prefix('posts')->group(function () {
+Route::prefix('posts')->middleware('auth')->group(function () {
 
     Route::get('' , [PostsController::class , 'showAll'])->name('posts.showAll');
 
-    Route::get('{post_id}/show' , [PostsController::class , 'single'])->name('posts.single');
+    Route::get('{post_id}/show' , [PostsController::class , 'single'])->where('post_id' , '[0-9]+')->name('posts.single');
 
     Route::get('scrap' , [PostsController::class , 'add'])->name('posts.scrap.showPage');
 

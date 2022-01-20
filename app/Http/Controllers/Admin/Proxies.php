@@ -15,12 +15,6 @@ use Illuminate\Support\Facades\File as FacadesFile;
 class Proxies extends Controller
 {
     
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    
     public function showAll()
     {
         $proxies = Proxy::paginate(15);

@@ -17,11 +17,6 @@ use Illuminate\Support\Facades\File as FacadesFile;
 class PostsController extends Controller
 {
     
-    
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     public function showAll()
     {

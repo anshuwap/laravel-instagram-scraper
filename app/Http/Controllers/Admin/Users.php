@@ -14,12 +14,6 @@ class Users extends Controller
 {
     use Enum;
 
-
-
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     
 
     public static function getGravatarUser()
