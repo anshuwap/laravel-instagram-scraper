@@ -58,7 +58,7 @@
                         </li>
                         @endforeach
                     </ul>
-                    <div>
+                    <div style="margin-top: 1em; margin-right: 37em;">
                         {{$posts->links('pagination::bootstrap-4')}}
                     </div>
                 </form>

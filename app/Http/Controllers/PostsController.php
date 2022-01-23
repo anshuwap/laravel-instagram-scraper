@@ -21,7 +21,7 @@ class PostsController extends Controller
 
     public function showAll()
     {
-        $posts = Post::paginate(20);
+        $posts = Post::orderby('created_at' , 'desc')->paginate(18);
 
         return view('archive.all' , ['posts' => $posts]);
     }

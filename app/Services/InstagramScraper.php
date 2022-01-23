@@ -28,6 +28,8 @@ class InstagramScraper
 
     private   $accountsData = [];
 
+    private $countSuccessAcc = 0;
+
 
 
     public function __construct(string $proxy = null, array $myAcc = [], array $accountsData = [])
