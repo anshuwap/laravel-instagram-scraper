@@ -147,7 +147,7 @@ class InstagramScraper
             'ID_instagram' => $postData['ID'],
             'thumbnail_url' => $coverPath ,
             'source_url' => $path,
-            'captions' => $$postData['captionOfPost'],
+            'captions' => $postData['captionOfPost'],
             'view' => $postData['view'],
             'like' => $postData['like'],
             'comment' => $postData['comment'],

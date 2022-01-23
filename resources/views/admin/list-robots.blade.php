@@ -5,9 +5,6 @@
     <div class="container-fluid">
       @include('errors.msg')
         <div class="row">
-          <a href="{{ route('proxies.checkStatus') }}" style="width: 14em;" class="btn btn-block btn-outline-primary">بروزرسانی وضعیت پروکسی ها</a>
-        </div>
-        <div class="row">
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header">
@@ -55,7 +52,14 @@
                           @endif
                         </td>
                         <td>
+                            <form action="{{ route('robots.changeProxy' , $robot->id) }}" method="post" style="display: inline"> 
+                              @csrf
+                              @method('put')
+                              <button type="submit" style="width:3em" class="btn btn-default btn-outline-success btn-icons"><i class="fas fa-sync"></i></i></button>
+                            </form>
+
                             <a href="{{ route('robots.edit' , $robot->id) }}" style="width:3em" class="btn btn-default btn-outline-warning btn-icons"><i class="fa fa-edit"></i></a>
+                            
                             <form action="{{ route('robots.delete' , $robot->id) }}" method="post" style="display: inline"> 
                               @csrf
                               @method('delete')

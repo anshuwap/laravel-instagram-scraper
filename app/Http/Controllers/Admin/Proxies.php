@@ -90,21 +90,7 @@ class Proxies extends Controller
 
         Proxy::whereIn('id', $idForDelete)->delete();
 
-        return back()->with('success' , 'پروکسی ها حذف شد');
+        return back()->with('success' , 'پروکسی ها حذف شدند');
     }
 
-
-    public static function changProxiesForRobot(array $robotsID)
-    {
-        $robots = Robot::whereIn('id', $robotsID)->get()->toArray();
-        
-        $proxies= array_slice(array_column(Proxy::select('proxy')->get()->toArray() , 'proxy') ,0 , count($robots));
-
-        foreach (array_combine($proxies , $robots) as $proxy => $robot) {
-            
-            Robot::find($robot['id'])->update(['proxy' => $proxy]);
-        }
-
-        Proxy::whereIn('proxy', $proxies)->delete();
-    }
 }

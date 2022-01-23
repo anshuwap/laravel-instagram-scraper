@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Proxy;
 use App\Models\Robot;
 use Illuminate\Database\Eloquent\Model;
 
@@ -74,5 +75,21 @@ class ProxyChecker
             ]);
         }
             
+    }
+
+
+
+    public static function changProxiesForRobot(array $robotsID)
+    {
+        $robots = Robot::whereIn('id', $robotsID)->get()->toArray();
+        
+        $proxies= array_slice(array_column(Proxy::select('proxy')->get()->toArray() , 'proxy') ,0 , count($robots));
+
+        foreach (array_combine($proxies , $robots) as $proxy => $robot) {
+            
+            Robot::find($robot['id'])->update(['proxy' => $proxy]);
+        }
+
+        Proxy::whereIn('proxy', $proxies)->delete();
     }
 }

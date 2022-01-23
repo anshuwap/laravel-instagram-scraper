@@ -47,12 +47,12 @@
 
                                       @if($post->type_media != 'sidecar')
                                       @if(is_int(strpos(pathinfo($post->source_url, PATHINFO_EXTENSION) , 'png')))
-                                        <div class="carousel-item">
+                                        <div class="carousel-item active">
                                           <img class="d-block w-100" src="/uploads/{{ $post->source_url  }}">
                                         </div>
                                         @endif
                                         @if (is_int(strpos(pathinfo($post->source_url, PATHINFO_EXTENSION) , 'mp4')))
-                                        <div class="carousel-item">
+                                        <div class="carousel-item active">
                                           <video controls>
                                               <source src="/uploads/{{ $post->source_url  }}" type="video/mp4">
                                           </video>

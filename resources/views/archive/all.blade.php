@@ -29,7 +29,7 @@
                     <button type="submit" style="font-family: Vazir; margin-bottom: 1em;" class="btn btn-danger">حذف همه</button>
                     <ul class="row">
                         @foreach ($posts as $id => $post)
-                        <li class="col-xl-4 col-lg-4 col-md-6 col-sm-12" style="font-family: Vazir">
+                        <li class="col-xl-4 col-lg-4 col-md-6 col-sm-12" style="font-family: Vazir;margin-top: 0.5em;">
                             <div class="contact-directory-box">
                                 <input type='checkbox' name='delete[]' value="{{ $post->id }}">
                                 <div class="contact-dire-info text-center">

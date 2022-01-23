@@ -30,7 +30,7 @@
                 <form action="{{ route('proxies.deleteAll') }}" method="post">
                   @csrf
                   @method('delete')
-                  <button type="submit" style="font-family: Vazir" class="btn btn-danger">حذف دسته جمعی</button>
+                  <button type="submit" style="font-family: Vazir" class="btn btn-danger">حذف همه</button>
                 <div class="card-body table-responsive p-0">
                   <table class="table table-hover text-nowrap">
                     <thead>

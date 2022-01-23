@@ -49,6 +49,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
         Route::get('add' , [Robots::class , 'add'])->name('robots.add');
 
+        Route::put('{robot_id}/change-proxy' , [Robots::class , 'changeProxy'])->name('robots.changeProxy');
+
         Route::post('store' , [Robots::class , 'store'])->name('robots.storeNew');
 
         Route::get('{robot_id}/edit' , [Robots::class , 'edit'])->name('robots.edit');

@@ -7,7 +7,6 @@ use App\Http\Requests\Robots\StoreRobot;
 use App\Http\Requests\Robots\updateRobot;
 use App\Models\Robot;
 use App\Services\ProxyChecker;
-use Illuminate\Support\Facades\Auth;
 
 class Robots extends Controller
 {
@@ -91,6 +90,20 @@ class Robots extends Controller
         }
 
         return back()->with('success' , 'روبات حذف شد');
+    }
+
+
+    public function changeProxy(int $robot_id)
+    {
+        try {
+            ProxyChecker::changProxiesForRobot([$robot_id]);
+ 
+        } catch (\Exception $e) {
+            return back()->with('failed' , $e->getMessage());
+        }
+
+        return back()->with('success' , 'پروکسی روبات تغییر کرد');
+
     }
 
 

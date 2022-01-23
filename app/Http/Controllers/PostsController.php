@@ -8,6 +8,7 @@ use App\Http\Requests\Scraper\File;
 use App\Models\Post;
 use App\Models\Robot;
 use App\Services\InstagramScraper;
+use App\Services\ProxyChecker;
 use App\Utilities\ExcelHandler;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -43,6 +44,8 @@ class PostsController extends Controller
 
 
 
+
+
     public function startScrap(File $request)
     {
         
@@ -72,14 +75,17 @@ class PostsController extends Controller
                 $scrap->run(); 
             }
 
-            Proxies::changProxiesForRobot($robotsID);
+            ProxyChecker::changProxiesForRobot($robotsID);
 
         } catch (\Exception $e) {
-            return back()->with('failed' , $e->getMessage());
+            return back()->with('failed' , $e->getMessage() );
+            // return back()->with('failed' , $e->getMessage() . ' In File : '. $e->getFile() . ' In Line : ' . $e->getLine());
         }
 
         return back()->with('success' , ' دریافت دیتا با موفقیت انجام شد و پروکسی ربات ها عوض شدند');
     }
+
+
 
 
 
@@ -109,6 +115,8 @@ class PostsController extends Controller
     }
 
     
+
+
     public function deleteAll(Request $request)
     {
         $idForDelete = $request->get('delete') ;
@@ -132,6 +140,8 @@ class PostsController extends Controller
     }
 
 
+
+
     public function deleteOne($post_id)
     {
         try {
@@ -147,6 +157,9 @@ class PostsController extends Controller
 
         return back()->with('success' , 'پست حذف شد');
     }
+
+
+
 
 
     private function deleteFile(string $thumbnail_url , string $source_url ,string $type_media)
